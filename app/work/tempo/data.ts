@@ -81,15 +81,15 @@ export const HERO = {
     },
     {
       label: "Role",
-      value: "End-to-end \u2014 discovery, solution design, technical build",
+      value: "Problem discovery, solution design, technical build",
     },
     {
       label: "Timeline",
-      value: "4\u20138 weeks, first call to working product",
+      value: "4\u20136 weeks to MVP",
     },
     {
       label: "Status",
-      value: "Client reviewed, approved. Onboarding underway.",
+      value: "Client onboarded",
     },
   ] as MetadataItem[],
   stack: [
@@ -356,7 +356,7 @@ export const IMPACT_PROSE = [
 
 export const IMPACT_CALLOUT: CalloutData = {
   quote:
-    "If I can streamline my processes, I don\u2019t think I will need a lot of headcount.",
+    "It has been working really well so far, I don\u2019t think I will needing new headcount for now.",
   attribution: "Alika, Solutioning Call",
   variant: "client",
 };
