@@ -165,11 +165,13 @@ export default function VideoPlayer() {
   }, []);
 
   const handleExpand = useCallback(() => {
+    cancelFade();
+    setFloating(false);
     placeholderRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
-  }, []);
+  }, [cancelFade]);
 
   const embedSrc = videoId
     ? `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&mute=1`
