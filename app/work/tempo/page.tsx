@@ -58,7 +58,7 @@ export default function TempoPage() {
       <SideNav />
       <main className="max-w-[720px] mx-auto px-6 pt-24">
         {/* ── Zone 1 — Hero ──────────────────────────── */}
-        <Section id="hero">
+        <Section id="introduction">
           <p className="text-[11px] font-medium tracking-widest uppercase text-text-tertiary mb-3">
             Client Project
           </p>
@@ -153,7 +153,7 @@ export default function TempoPage() {
         <Section id="build">
           <ZoneLabel text="What I built" />
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
-            Three components, each with a reason
+            Three components working in tandem
           </h2>
           
           <JourneyMap />
@@ -175,7 +175,7 @@ export default function TempoPage() {
 
         {/* ── Zone 7 — Pivots ────────────────────────── */}
         <Section id="pivots">
-          <ZoneLabel text="A key decision" />
+          <ZoneLabel text="A key architectural pivot" />
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             A moment where the obvious approach was wrong
           </h2>

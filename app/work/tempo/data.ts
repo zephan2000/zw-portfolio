@@ -144,8 +144,8 @@ export const BEFORE_AFTER_STATS: BeforeAfterStat[] = [
 // ── Zone 4 — Diagnosis 1 ──────────────────────────────
 
 export const DIAGNOSIS_1_PROSE = [
-  "The first instinct was to look at existing scheduling tools \u2014 Buffer, Later, Hootsuite. They all solve the scheduling problem, but they all introduce a new interface. A new place for content to live.",
-  "Alika had already tried Later. The problem wasn\u2019t feature gaps \u2014 it was that the tool sat outside her workflow. She\u2019d have to export from Notion, import into Later, and maintain two sources of truth. The friction wasn\u2019t reduced. It was relocated.",
+  "The first instinct was to look at existing scheduling tools \u2014 Hootsuite, Planoly or Later. They all solve the scheduling problem, but they all introduce a new interface. A new place for content to live.",
+  "Alika had already tried Later. The problem wasn\u2019t feature gaps, it was that the tool sat outside her workflow. She\u2019d have to export from Notion, import into Later, and maintain two sources of truth. The friction wasn\u2019t reduced. It was relocated.",
   "The real requirement wasn\u2019t \u2018a scheduling tool.\u2019 It was \u2018scheduling that lives inside Notion.\u2019 And none of the existing tools could do that.",
 ];
 
@@ -160,7 +160,7 @@ export const DIAGNOSIS_1_CALLOUT: CalloutData = {
 
 export const DIAGNOSIS_2A_PROSE = [
   "Notion\u2019s API is read-write for databases, pages, and blocks. You can query, create, update. But it has no push mechanism \u2014 no webhooks, no event subscriptions, no way to say \u2018when this status changes, do something.\u2019",
-  "This is the architectural constraint that shaped the entire project. You can pull from Notion. You can\u2019t be pushed to by Notion. The scheduling pipeline needed a bridge between Notion\u2019s polling model and Instagram\u2019s push-based API.",
+  "This is the architectural constraint that shaped the entire project. You can pull data from Notion but can't be pushed to do something by it. The scheduling pipeline needed a bridge between Notion\u2019s polling model and Instagram\u2019s push-based API.",
 ];
 
 export const DIAGNOSIS_2A_CALLOUT: CalloutData = {
@@ -173,7 +173,7 @@ export const DIAGNOSIS_2A_CALLOUT: CalloutData = {
 // ── Zone 5B — Operational diagnosis ────────────────────
 
 export const DIAGNOSIS_2B_PROSE = [
-  "Beyond the technical gap, there was an operational one. Alika\u2019s process for each client wasn\u2019t documented \u2014 it lived in her head. Which hashtag sets for which client. Which accounts get Reels vs. carousels. Which clients need approval before publishing.",
+  "Beyond the technical gap, there was an operational one. Alika\u2019s process for each client wasn\u2019t documented, it lived in her head. Which hashtag sets for which client. Which accounts get Reels vs. carousels. Which clients need approval before publishing.",
   "You can\u2019t automate a process that isn\u2019t externalized. Before building any pipeline, I had to help Alika articulate her per-client rules in a structured format that a system could consume.",
   "This is where the Notion workspace design became critical. Each client database wasn\u2019t just a content calendar \u2014 it was a rule engine. Properties for post type, hashtag groups, approval status, publish time. The workspace was the specification.",
 ];
@@ -185,21 +185,21 @@ export const BUILD_INTRO_PROSE =
 
 export const BUILD_SUBSECTIONS = [
   {
-    heading: "The workspace generator",
+    heading: "The workspace agent",
     paragraphs: [
-      "A templating system that creates per-client Notion workspaces from a configuration object. Databases, properties, views, and template pages \u2014 all generated programmatically via the Notion API. Onboarding a new client takes minutes, not hours.",
-    ],
-  },
-  {
-    heading: "The scheduling pipeline",
-    paragraphs: [
-      "An n8n workflow that polls Notion databases for posts with \u2018Ready to publish\u2019 status, fetches the associated image, constructs the Instagram API payload, and publishes. Runs on a configurable schedule. Includes retry logic and error notifications via Telegram.",
+      "A Notion workspace expert agent to handle gathering workspace requirements, understand brand vibe, curate images, handle OAuth flows & build the workspace.",
     ],
   },
   {
     heading: "The image selection layer",
     paragraphs: [
-      "A Notion-native interface for selecting cover images. Rather than uploading to a separate tool, user attaches images directly in Notion. The pipeline extracts the first image from the page content and uses it as the post\u2019s media.",
+      "An custom app that retrieves the curated images & aggregates images across royalty-free sources, creating a new way for Alika to search for images that she can use for the workspace.",
+    ],
+  },
+  {
+    heading: "The scheduling pipeline",
+    paragraphs: [
+      "An n8n workflow that listens to Notion databases for \u2018Ready to Post\u2019 status changes, fetches the associated image, constructs the Instagram API payload, and publishes. Runs on a configurable schedule. Includes retry logic and error notifications via Telegram.",
     ],
   },
   {
@@ -368,7 +368,7 @@ export type GapData = {
   description: string;
 };
 
-export const GAPS_HEADING = "Two honest gaps.";
+export const GAPS_HEADING = "Two honest gaps";
 export const GAPS_SUBTEXT =
   "Though these were non-essential requirements for Phase 1, they were considered in the solution design process.";
 
