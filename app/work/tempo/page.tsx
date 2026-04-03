@@ -5,6 +5,7 @@ import JourneyMap from "./components/JourneyMap";
 import CalloutBlock from "./components/CalloutBlock";
 import ZoneLabel from "./components/ZoneLabel";
 import PivotCard from "./components/PivotCard";
+import MetricCards from "./components/MetricCards";
 import {
   HERO,
   PROBLEM_PROSE,
@@ -17,7 +18,6 @@ import {
   BUILD_INTRO_PROSE,
   BUILD_SUBSECTIONS,
   PIVOTS,
-  METRICS,
   IMPACT_PROSE,
   IMPACT_CALLOUT,
   GAPS,
@@ -193,19 +193,7 @@ export default function TempoPage() {
           <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
             The structural outcome first
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-            {METRICS.map((m) => (
-              <div
-                key={m.label}
-                className="bg-surface border border-border rounded-lg p-4 text-center"
-              >
-                <p className="font-serif text-2xl md:text-3xl text-foreground mb-1">
-                  {m.value}
-                </p>
-                <p className="text-xs text-text-tertiary">{m.label}</p>
-              </div>
-            ))}
-          </div>
+          <MetricCards />
           <Prose paragraphs={IMPACT_PROSE} />
           <CalloutBlock {...IMPACT_CALLOUT} />
         </Section>
@@ -213,37 +201,31 @@ export default function TempoPage() {
 
         {/* ── Zone 9 — Gaps ──────────────────────────── */}
         <Section id="gaps">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-12 items-start">
-            {/* Left — framing */}
-            <div>
-              <ZoneLabel text="Close — What it doesn't do yet" />
-              <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
-                {GAPS_HEADING}
-              </h2>
-              <p className="text-base text-text-secondary leading-[1.8]">
-                {GAPS_SUBTEXT}
-              </p>
-            </div>
+          <ZoneLabel text="What it doesn't do yet" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
+            {GAPS_HEADING}
+          </h2>
+          <p className="text-base text-text-secondary leading-[1.8] mb-8">
+            {GAPS_SUBTEXT}
+          </p>
 
-            {/* Right — gap cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {GAPS.map((gap, i) => (
-                <div
-                  key={i}
-                  className="border border-border rounded-lg p-6"
-                >
-                  <span className="inline-block px-3 py-1 text-xs font-medium uppercase tracking-wider bg-surface rounded-full mb-4">
-                    Gap {i + 1}
-                  </span>
-                  <h3 className="text-base font-semibold text-foreground mb-2">
-                    {gap.title}
-                  </h3>
-                  <p className="text-sm text-text-secondary leading-[1.7]">
-                    {gap.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {GAPS.map((gap, i) => (
+              <div
+                key={i}
+                className="border border-border rounded-lg p-6"
+              >
+                <span className="inline-block px-3 py-1 text-xs font-medium uppercase tracking-wider bg-surface rounded-full mb-4">
+                  Gap {i + 1}
+                </span>
+                <h3 className="text-base font-semibold text-foreground mb-2">
+                  {gap.title}
+                </h3>
+                <p className="text-sm text-text-secondary leading-[1.7]">
+                  {gap.description}
+                </p>
+              </div>
+            ))}
           </div>
         </Section>
 
