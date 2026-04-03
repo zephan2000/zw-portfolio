@@ -11,7 +11,7 @@ export default function BeforeAfter() {
   const isAfter = mode === "after";
 
   return (
-    <div className="my-4">
+    <div className="my-4 bg-surface border border-border rounded-xl p-6">
       {/* Toggle */}
       <div className="flex rounded-lg p-[3px] gap-[2px] w-fit mb-5 border border-border bg-surface glass-surface">
         <button

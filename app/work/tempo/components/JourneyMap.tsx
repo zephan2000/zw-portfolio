@@ -80,7 +80,7 @@ export default function JourneyMap() {
   );
 
   return (
-    <div className="py-5 my-8">
+    <div className="py-5 my-8 bg-surface border border-border rounded-xl px-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <span className="text-[13px] font-medium text-foreground">
