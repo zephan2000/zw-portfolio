@@ -22,6 +22,7 @@ export default function VideoPlayer() {
   const controlsRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
   const floatingRef = useRef(false);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const [floating, setFloating] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [seen, setSeen] = useState(false);
@@ -82,12 +83,8 @@ export default function VideoPlayer() {
       wr.style.boxShadow = "0 8px 32px rgba(0,0,0,0.12)";
     });
 
-    // Fade to low opacity after 3s at full visibility
-    const fadeTimer = setTimeout(() => {
-      if (!floatingRef.current || !wrapperRef.current) return;
-      wrapperRef.current.style.transition = "opacity 0.6s ease";
-      wrapperRef.current.style.opacity = "0.45";
-    }, 3000);
+    // Schedule initial fade
+    scheduleFade();
 
     // Reposition on window resize while floating
     const onResize = () => {
@@ -98,7 +95,7 @@ export default function VideoPlayer() {
     };
     window.addEventListener("resize", onResize);
     return () => {
-      clearTimeout(fadeTimer);
+      cancelFade();
       window.removeEventListener("resize", onResize);
     };
   }, [floating]);
@@ -124,20 +121,43 @@ export default function VideoPlayer() {
     return () => obs.disconnect();
   }, [seen, dismissed]);
 
+  // ── Fade helpers: 3s hold at full opacity, then fade ──
+  const cancelFade = useCallback(() => {
+    if (fadeTimerRef.current) {
+      clearTimeout(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+  }, []);
+
+  const scheduleFade = useCallback(() => {
+    cancelFade();
+    fadeTimerRef.current = setTimeout(() => {
+      if (!floatingRef.current) return;
+      if (wrapperRef.current) {
+        wrapperRef.current.style.transition = "opacity 0.6s ease";
+        wrapperRef.current.style.opacity = "0.45";
+      }
+      if (controlsRef.current) controlsRef.current.style.opacity = "0";
+    }, 3000);
+  }, [cancelFade]);
+
   // ── Hover handlers ──
   // Work because the iframe is pointer-events-none when floating,
   // so the wrapper div receives mouse events over its full area.
   const onEnter = useCallback(() => {
     if (!floatingRef.current) return;
-    if (wrapperRef.current) wrapperRef.current.style.opacity = "1";
+    cancelFade();
+    if (wrapperRef.current) {
+      wrapperRef.current.style.transition = "opacity 0.2s ease";
+      wrapperRef.current.style.opacity = "1";
+    }
     if (controlsRef.current) controlsRef.current.style.opacity = "1";
-  }, []);
+  }, [cancelFade]);
 
   const onLeave = useCallback(() => {
     if (!floatingRef.current) return;
-    if (wrapperRef.current) wrapperRef.current.style.opacity = "0.45";
-    if (controlsRef.current) controlsRef.current.style.opacity = "0";
-  }, []);
+    scheduleFade();
+  }, [scheduleFade]);
 
   const handleDismiss = useCallback(() => {
     setDismissed(true);
