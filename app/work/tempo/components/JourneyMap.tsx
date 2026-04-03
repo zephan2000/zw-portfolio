@@ -146,7 +146,9 @@ export default function JourneyMap() {
                   node={node}
                   isActive={activeNode.id === node.id}
                   trackVariant="setup"
-                  onClick={() => setActiveNode(node)}
+                  onClick={() => setLockedNode(node)}
+                  onHover={() => setHoveredNode(node)}
+                  onLeave={() => setHoveredNode(null)}
                 />
                 {i < JOURNEY_TRACKS[0].nodes.length - 1 && <Arrow />}
               </div>
@@ -180,7 +182,9 @@ export default function JourneyMap() {
                   node={node}
                   isActive={activeNode.id === node.id}
                   trackVariant="post"
-                  onClick={() => setActiveNode(node)}
+                  onClick={() => setLockedNode(node)}
+                  onHover={() => setHoveredNode(node)}
+                  onLeave={() => setHoveredNode(null)}
                 />
                 {i < JOURNEY_TRACKS[1].nodes.length - 1 && <Arrow />}
               </div>
@@ -198,7 +202,9 @@ export default function JourneyMap() {
                 node={node}
                 isActive={activeNode.id === node.id}
                 trackVariant={JOURNEY_TRACKS[activeTrackIndex].variant}
-                onClick={() => setActiveNode(node)}
+                onClick={() => setLockedNode(node)}
+                onHover={() => setHoveredNode(node)}
+                onLeave={() => setHoveredNode(null)}
               />
               {i < JOURNEY_TRACKS[activeTrackIndex].nodes.length - 1 && (
                 <Arrow />
