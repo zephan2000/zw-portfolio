@@ -13,7 +13,7 @@ export default function BeforeAfter() {
   return (
     <div className="my-4">
       {/* Toggle */}
-      <div className="flex rounded-lg p-[3px] gap-[2px] w-fit mb-5 border border-border bg-surface">
+      <div className="flex rounded-lg p-[3px] gap-[2px] w-fit mb-5 border border-border bg-surface glass-surface">
         <button
           onClick={() => setLocked("before")}
           onMouseEnter={() => setHovered("before")}
@@ -33,7 +33,7 @@ export default function BeforeAfter() {
           className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors ${
             isAfter
               ? "bg-background text-foreground border-border"
-              : "bg-transparent text-text-secondary border-transparent hover:text-foreground"
+              : "bg-transparent text-text-secondary border-transparent hover:text-foreground shimmer-once"
           }`}
         >
           After

@@ -39,12 +39,12 @@ function NodeCircle({
       className="flex flex-col items-center flex-1 cursor-pointer select-none group"
     >
       <div
-        className={`relative w-10 h-10 rounded-full border flex items-center justify-center text-xs font-medium transition-colors ${
+        className={`relative w-10 h-10 rounded-full border flex items-center justify-center text-xs font-medium transition-all duration-200 ${
           isActive
             ? isSetup
-              ? "border-accent bg-accent-surface text-accent border-[1.5px]"
-              : "border-emerald-400 bg-emerald-50 text-emerald-700 border-[1.5px]"
-            : `border-border bg-surface text-text-secondary ${
+              ? "border-accent bg-accent-surface text-accent border-[1.5px] glow-accent"
+              : "border-emerald-400 bg-emerald-50 text-emerald-700 border-[1.5px] glow-emerald"
+            : `border-border bg-surface text-text-secondary glass-surface ${
                 isSetup
                   ? "group-hover:border-accent group-hover:text-accent"
                   : "group-hover:border-emerald-400 group-hover:text-emerald-700"
@@ -215,7 +215,7 @@ export default function JourneyMap() {
       </div>
 
       {/* Detail panel */}
-      <div className="mt-4 border border-border rounded-lg p-[14px_18px] bg-[var(--background)] min-h-[90px]">
+      <div className="mt-4 border border-border rounded-lg p-[14px_18px] bg-[var(--background)] min-h-[90px] glass-surface">
         {activeNode ? (
           <>
             <div className="flex items-start justify-between gap-[10px] mb-2">

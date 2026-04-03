@@ -38,10 +38,17 @@ export default function SideNav() {
           const isActive = activeId === id;
 
           return (
-            <li key={item.href}>
+            <li key={item.href} className="flex items-center gap-2">
+              <span
+                className={`w-1 h-1 rounded-full transition-all duration-200 ${
+                  isActive
+                    ? "bg-foreground scale-100"
+                    : "bg-transparent scale-0"
+                }`}
+              />
               <a
                 href={item.href}
-                className={`block text-sm transition-colors ${
+                className={`block text-sm transition-all duration-200 ${
                   isActive
                     ? "text-foreground font-medium"
                     : "text-text-tertiary hover:text-text-secondary"
