@@ -5,17 +5,13 @@ export default function CalloutBlock({ quote, attribution, variant }: CalloutDat
 
   return (
     <blockquote
-      className={`pl-4 py-4 mt-8 rounded-r-md ${
+      className={`pl-4 py-4 mt-8 rounded-r-md border-l-[3px] ${
         isClient
-          ? "border-l-[3px] border-accent bg-accent-surface"
-          : "border-l-[3px] border-border bg-surface"
+          ? "border-accent bg-accent-surface"
+          : "border-self-accent bg-self-surface"
       }`}
     >
-      <p
-        className={`text-base leading-[1.75] italic ${
-          isClient ? "text-foreground" : "text-text-secondary"
-        }`}
-      >
+      <p className="text-base leading-[1.75] italic text-foreground">
         &ldquo;{quote}&rdquo;
       </p>
       <footer className="mt-2 text-sm text-text-tertiary">

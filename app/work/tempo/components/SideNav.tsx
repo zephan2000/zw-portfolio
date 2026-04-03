@@ -32,7 +32,7 @@ export default function SideNav() {
 
   return (
     <nav className="hidden lg:block fixed left-8 top-1/2 -translate-y-1/2 z-40">
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-3.5">
         {NAV_ITEMS.map((item) => {
           const id = item.href.slice(1);
           const isActive = activeId === id;

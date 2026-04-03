@@ -73,7 +73,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const HERO = {
   title: "Notion Workspace Agent",
   subheading:
-    "How we bought back 2 hours per week for a solo social media manager",
+    "How 2 hours per week was bought back for a solo social media manager",
   metadata: [
     {
       label: "Client type",
@@ -198,7 +198,7 @@ export const BUILD_SUBSECTIONS = [
   {
     heading: "The image selection layer",
     paragraphs: [
-      "A Notion-native interface for selecting cover images. Rather than uploading to a separate tool, Alika attaches images directly in Notion. The pipeline extracts the first image from the page content and uses it as the post\u2019s media.",
+      "A Notion-native interface for selecting cover images. Rather than uploading to a separate tool, user attaches images directly in Notion. The pipeline extracts the first image from the page content and uses it as the post\u2019s media.",
     ],
   },
   {
@@ -240,7 +240,7 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         label: "Cover Studio",
         title: "Cover Studio \u2014 AI image search & preview",
         description:
-          "An AI agent queries Unsplash, Pexels, and Pixabay APIs for CDN-ready URLs, collecting at least 15 unique images. A Vercel-hosted preview app lets Alika review, reposition (focal point), and select a cover image for each workspace page before build begins. This replaced a fragile web-scraping approach that produced broken links and wasted tokens.",
+          "An AI agent queries Unsplash, Pexels, and Pixabay APIs for CDN-ready URLs, collecting at least 15 unique images. A Vercel-hosted preview app lets users review, reposition (focal point), and select a cover image for each workspace page before build begins. This replaced a fragile web-scraping approach that produced broken links and wasted tokens.",
       },
       {
         id: "workspace-build",
@@ -273,7 +273,7 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         label: "Draft in Notion",
         title: "Draft \u2014 content creation stays in Notion",
         description:
-          "Alika creates a new entry in the Posts database: caption, post type (Image / Carousel / Reel), a Google Drive media link, and a scheduled date and time. Everything stays inside Notion \u2014 she never opens Instagram at any point in this workflow.",
+          "User creates a new entry in the Posts database: caption, post type (Image / Carousel / Reel), a Google Drive media link, and a scheduled date and time. Everything stays inside Notion \u2014 she never opens Instagram at any point in this workflow.",
       },
       {
         id: "status-change",
@@ -281,7 +281,7 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         label: "Status change",
         title: "Status change \u2014 the only trigger",
         description:
-          "When Alika marks a post as \u2018Ready to Post,\u2019 the n8n workflow is triggered via a Notion webhook. This is the only action required from Alika after drafting. The status property is the sole control signal for the entire automation pipeline.",
+          "When users marks a post as \u2018Ready to Post,\u2019 the n8n workflow is triggered via a Notion webhook. This is the only action required from Alika after drafting. The status property is the sole control signal for the entire automation pipeline.",
       },
       {
         id: "n8n-webhook",
@@ -295,9 +295,9 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         id: "instagram-api",
         abbr: "04",
         label: "Instagram API",
-        title: "Instagram Creator API \u2014 scheduled posting",
+        title: "Facebook Graph API \u2014 scheduled posting",
         description:
-          "n8n calls the Instagram Creator API via the Facebook Graph API to schedule the post at the exact time specified in Notion. For carousels it handles multi-media upload in the correct sequence; for reels it sets the video container properties. The post_id returned by Instagram is written back to the Notion record.",
+          "n8n calls the Facebook Graph API via the Facebook Graph API to schedule the post at the exact time specified in Notion. For carousels it handles multi-media upload in the correct sequence; for reels it sets the video container properties. The post_id returned by Instagram is written back to the Notion record.",
       },
       {
         id: "telegram",
@@ -305,7 +305,7 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         label: "Telegram",
         title: "Telegram \u2014 confirmation & error alerts",
         description:
-          "On successful scheduling, n8n sends Alika a Telegram message confirming the post type, scheduled time, and a link to the Notion record. If any step fails, Telegram receives an error notification with the failure reason \u2014 so Alika is never dependent on checking Instagram or Notion to know something went wrong.",
+          "On successful scheduling, n8n sends users a Telegram message confirming the post type, scheduled time, and a link to the Notion record. If any step fails, Telegram receives an error notification with the failure reason \u2014 so Alika is never dependent on checking Instagram or Notion to know something went wrong.",
       },
     ],
   },
