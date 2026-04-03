@@ -1,43 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { BEFORE_AFTER_STEPS, BEFORE_AFTER_STATS } from "../data";
 
 export default function BeforeAfter() {
-  const [locked, setLocked] = useState<"before" | "after">("before");
-  const [hovered, setHovered] = useState<"before" | "after" | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isAfter, setIsAfter] = useState(false);
 
-  const mode = hovered ?? locked;
-  const isAfter = mode === "after";
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const midpoint = rect.top + rect.height / 2;
+      const trigger = window.innerHeight * 0.45;
+      setIsAfter(midpoint < trigger);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="my-4 bg-surface border border-border rounded-xl p-6">
-      {/* Toggle */}
+    <div ref={containerRef} className="my-4 bg-surface border border-border rounded-xl p-6">
+      {/* State indicator */}
       <div className="flex rounded-lg p-[3px] gap-[2px] w-fit mb-5 border border-border bg-surface glass-surface">
-        <button
-          onClick={() => setLocked("before")}
-          onMouseEnter={() => setHovered("before")}
-          onMouseLeave={() => setHovered(null)}
-          className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors ${
+        <span
+          className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors duration-300 ${
             !isAfter
               ? "bg-background text-foreground border-border"
-              : "bg-transparent text-text-secondary border-transparent hover:text-foreground"
+              : "bg-transparent text-text-tertiary border-transparent"
           }`}
         >
           Before
-        </button>
-        <button
-          onClick={() => setLocked("after")}
-          onMouseEnter={() => setHovered("after")}
-          onMouseLeave={() => setHovered(null)}
-          className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors ${
+        </span>
+        <span
+          className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors duration-300 ${
             isAfter
               ? "bg-background text-foreground border-border"
-              : "bg-transparent text-text-secondary border-transparent hover:text-foreground shimmer-once"
+              : "bg-transparent text-text-tertiary border-transparent"
           }`}
         >
           After
-        </button>
+        </span>
       </div>
 
       {/* Steps list */}
@@ -80,7 +87,6 @@ export default function BeforeAfter() {
                 >
                   {step.before}
                 </span>
-                {/* New text for mod/auto */}
                 {step.after && (
                   <span
                     className={`block text-[13px] leading-[1.4] mt-1 transition-all duration-350 ease-out ${
