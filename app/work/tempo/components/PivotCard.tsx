@@ -59,7 +59,11 @@ export default function PivotCard({ before, after }: PivotData) {
       <div className="border-t border-border" />
 
       {/* After */}
-      <div>
+      <div
+        className={`transition-opacity duration-500 ${
+          struck ? "opacity-100" : "opacity-40"
+        }`}
+      >
         <span className="inline-block text-xs font-medium px-2 py-0.5 rounded bg-green-50 text-green-700 mb-2">
           AFTER
         </span>
