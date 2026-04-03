@@ -103,7 +103,7 @@ export default function VideoPlayer() {
       ([e]) => {
         if (e.isIntersecting) {
           setSeen(true);
-          setFloating(false);
+          // Don't auto-revert to inline — only the expand button does that
         } else if (seen && !dismissed) {
           setFloating(true);
         }

@@ -54,7 +54,7 @@ export default function TempoPage() {
   return (
     <>
       <SideNav />
-      <main className="max-w-[720px] mx-auto px-6 pt-24 lg:ml-[200px] lg:mr-auto xl:mx-auto">
+      <main className="max-w-[720px] mx-auto px-6 pt-24">
         {/* ── Zone 1 — Hero ──────────────────────────── */}
         <Section id="hero">
           <p className="text-[11px] font-medium tracking-widest uppercase text-text-tertiary mb-3">
