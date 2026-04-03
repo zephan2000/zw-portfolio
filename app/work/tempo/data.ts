@@ -56,7 +56,7 @@ export type JourneyTrack = {
 // ── Navigation ─────────────────────────────────────────
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Introduction", href: "#hero" },
+  { label: "Introduction", href: "#introduction" },
   { label: "Walkthrough", href: "#video" },
   { label: "Problem", href: "#problem" },
   { label: "Diagnosis", href: "#diagnosis-1" },
@@ -205,9 +205,8 @@ export const BUILD_SUBSECTIONS = [
   {
     heading: "The state management system",
     paragraphs: [
-      "This component wasn\u2019t in the original design. It emerged when the workspace generator and scheduling pipeline needed to share state \u2014 which clients are active, which posts have been published, which failed and need retry.",
-      "Initially, state lived in Notion properties. But Notion\u2019s API rate limits and eventual consistency model made this fragile. A Supabase table now serves as the state layer \u2014 synced with Notion, but authoritative for the pipeline.",
-      "The state block protocol gives the AI assistant a structured way to read and write system state. Instead of parsing natural language, it reads a JSON block at the top of each phase file. Deterministic, auditable, version-controlled.",
+      "This component wasn\u2019t in the original design. It emerged when there was a need to give agents freedom to configure the workspace according to user requirements and dynamically swap out workspace cover images.",
+      "Initially, each workspace was an entire JSON configuration with scripts written to build a workspace. Now, agents are given build instructions and fed context on what an ideal workspace should look like. The agent's build state lives in the database and serves as the state layer.",
       "This was the most significant architectural pivot in the project. It moved the system from \u2018scripts that call APIs\u2019 to \u2018a stateful orchestration layer with clear boundaries.\u2019",
     ],
   },
@@ -315,18 +314,18 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
 // ── Zone 7 — Pivots ───────────────────────────────────
 
 export const PIVOTS: PivotData[] = [
-  {
-    before: {
-      label: "Cloudflare Workers",
-      description:
-        "Initial plan was to use Cloudflare Workers for the webhook handler and API bridge. Fast, cheap, edge-deployed.",
-    },
-    after: {
-      label: "n8n + Notion API bridge",
-      description:
-        "Cloudflare Workers couldn\u2019t handle the multi-step orchestration needed. n8n gave us visual debugging, retry logic, and a GUI Alika could eventually inspect.",
-    },
-  },
+  // {
+  //   before: {
+  //     label: "Cloudflare Workers",
+  //     description:
+  //       "Initial plan was to use Cloudflare Workers for the webhook handler and API bridge. Fast, cheap, edge-deployed.",
+  //   },
+  //   after: {
+  //     label: "n8n + Notion API bridge",
+  //     description:
+  //       "Cloudflare Workers couldn\u2019t handle the multi-step orchestration needed. n8n gave us visual debugging, retry logic, and a GUI Alika could eventually inspect.",
+  //   },
+  // },
   {
     before: {
       label: "Monolithic SKILL.md",

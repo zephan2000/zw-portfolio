@@ -155,10 +155,11 @@ export default function TempoPage() {
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             Three components, each with a reason
           </h2>
+          
+          <JourneyMap />
           <p className="text-lg text-text-secondary leading-[1.75] mb-2">
             {BUILD_INTRO_PROSE}
           </p>
-          <JourneyMap />
           <div className="mt-10 flex flex-col gap-10">
             {BUILD_SUBSECTIONS.map((sub) => (
               <div key={sub.heading}>
@@ -174,9 +175,9 @@ export default function TempoPage() {
 
         {/* ── Zone 7 — Pivots ────────────────────────── */}
         <Section id="pivots">
-          <ZoneLabel text="The pivots" />
+          <ZoneLabel text="A key decision" />
           <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
-            Two moments where the obvious approach was wrong
+            A moment where the obvious approach was wrong
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {PIVOTS.map((pivot, i) => (
