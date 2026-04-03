@@ -1,0 +1,235 @@
+import SideNav from "./components/SideNav";
+import VideoPlayer from "./components/VideoPlayer";
+import BeforeAfter from "./components/BeforeAfter";
+import JourneyMap from "./components/JourneyMap";
+import CalloutBlock from "./components/CalloutBlock";
+import ZoneLabel from "./components/ZoneLabel";
+import PivotCard from "./components/PivotCard";
+import {
+  HERO,
+  PROBLEM_PROSE,
+  PROBLEM_CALLOUT,
+  DIAGNOSIS_1_PROSE,
+  DIAGNOSIS_1_CALLOUT,
+  DIAGNOSIS_2A_PROSE,
+  DIAGNOSIS_2A_CALLOUT,
+  DIAGNOSIS_2B_PROSE,
+  BUILD_INTRO_PROSE,
+  BUILD_SUBSECTIONS,
+  PIVOTS,
+  METRICS,
+  IMPACT_PROSE,
+  IMPACT_CALLOUT,
+  GAPS_PROSE,
+  REFLECTION_PROSE,
+} from "./data";
+
+function Section({
+  id,
+  children,
+}: {
+  id: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="py-12 md:py-20 scroll-mt-16">
+      {children}
+    </section>
+  );
+}
+
+function Prose({ paragraphs }: { paragraphs: string[] }) {
+  return (
+    <div className="flex flex-col gap-5">
+      {paragraphs.map((p, i) => (
+        <p key={i} className="text-base text-text-secondary leading-[1.75]">
+          {p}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+export default function TempoPage() {
+  return (
+    <>
+      <SideNav />
+      <main className="max-w-[720px] mx-auto px-6 pt-24">
+        {/* ── Zone 1 — Hero ──────────────────────────── */}
+        <Section id="hero">
+          <p className="text-sm font-medium tracking-widest uppercase text-text-tertiary mb-4">
+            Case Study
+          </p>
+          <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-foreground mb-4">
+            {HERO.title}
+          </h1>
+          <p className="font-serif text-2xl md:text-3xl text-foreground leading-snug mb-10">
+            {HERO.subheading}
+          </p>
+
+          {/* Metadata row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            {HERO.metadata.map((item) => (
+              <div key={item.label}>
+                <p className="text-[10px] uppercase tracking-[0.15em] text-text-tertiary mb-1">
+                  {item.label}
+                </p>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {item.value}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Stack pills */}
+          <div className="flex flex-wrap gap-2">
+            {HERO.stack.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 text-xs rounded-full border border-border text-text-secondary"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── Zone 2 — Video ─────────────────────────── */}
+        <Section id="video">
+          <VideoPlayer />
+        </Section>
+
+        {/* ── Zone 3 — Problem ───────────────────────── */}
+        <Section id="problem">
+          <ZoneLabel text="The world before" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            What was broken
+          </h2>
+          <Prose paragraphs={PROBLEM_PROSE} />
+          <div className="mt-8">
+            <BeforeAfter />
+          </div>
+          <CalloutBlock {...PROBLEM_CALLOUT} />
+        </Section>
+
+        {/* ── Zone 4 — Diagnosis 1 ───────────────────── */}
+        <Section id="diagnosis-1">
+          <ZoneLabel text="What I ruled out and why" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            Why obvious fixes failed
+          </h2>
+          <Prose paragraphs={DIAGNOSIS_1_PROSE} />
+          <CalloutBlock {...DIAGNOSIS_1_CALLOUT} />
+        </Section>
+
+        {/* ── Zone 5A — Technical diagnosis ──────────── */}
+        <Section id="diagnosis-2a">
+          <ZoneLabel text="The diagnosis — technical" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            Notion couldn&apos;t push
+          </h2>
+          <Prose paragraphs={DIAGNOSIS_2A_PROSE} />
+          <CalloutBlock {...DIAGNOSIS_2A_CALLOUT} />
+        </Section>
+
+        {/* ── Zone 5B — Operational diagnosis ────────── */}
+        <Section id="diagnosis-2b">
+          <ZoneLabel text="The diagnosis — operational" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            You can&apos;t automate what&apos;s still in someone&apos;s head
+          </h2>
+          <Prose paragraphs={DIAGNOSIS_2B_PROSE} />
+        </Section>
+
+        {/* ── Zone 6 — Build ─────────────────────────── */}
+        <Section id="build">
+          <ZoneLabel text="What I built" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            Three components, each with a reason
+          </h2>
+          <p className="text-base text-text-secondary leading-[1.75] mb-2">
+            {BUILD_INTRO_PROSE}
+          </p>
+          <JourneyMap />
+          <div className="mt-10 flex flex-col gap-10">
+            {BUILD_SUBSECTIONS.map((sub) => (
+              <div key={sub.heading}>
+                <h3 className="text-lg font-semibold text-foreground mb-3">
+                  {sub.heading}
+                </h3>
+                <Prose paragraphs={sub.paragraphs} />
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── Zone 7 — Pivots ────────────────────────── */}
+        <Section id="pivots">
+          <ZoneLabel text="The pivots" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            Two moments where the obvious approach was wrong
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {PIVOTS.map((pivot, i) => (
+              <PivotCard key={i} {...pivot} />
+            ))}
+          </div>
+        </Section>
+
+        {/* ── Zone 8 — Impact ────────────────────────── */}
+        <Section id="impact">
+          <ZoneLabel text="Impact" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            The structural outcome first
+          </h2>
+          <div className="grid grid-cols-3 gap-4 mb-10">
+            {METRICS.map((m) => (
+              <div
+                key={m.label}
+                className="bg-surface border border-border rounded-lg p-4 text-center"
+              >
+                <p className="font-serif text-2xl md:text-3xl text-foreground mb-1">
+                  {m.value}
+                </p>
+                <p className="text-xs text-text-tertiary">{m.label}</p>
+              </div>
+            ))}
+          </div>
+          <Prose paragraphs={IMPACT_PROSE} />
+          <CalloutBlock {...IMPACT_CALLOUT} />
+        </Section>
+
+        {/* ── Zone 9 — Gaps ──────────────────────────── */}
+        <Section id="gaps">
+          <ZoneLabel text="What it doesn't do yet" />
+          <div className="mt-4">
+            <Prose paragraphs={GAPS_PROSE} />
+          </div>
+        </Section>
+
+        {/* ── Zone 10 — Reflection ───────────────────── */}
+        <Section id="reflection">
+          <ZoneLabel text="What I'd do differently" />
+          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            Discovery is the work
+          </h2>
+          <Prose paragraphs={REFLECTION_PROSE} />
+        </Section>
+
+        {/* ── Footer ─────────────────────────────────── */}
+        <footer className="py-16 border-t border-border text-center">
+          <p className="text-sm text-text-secondary mb-4">
+            Technical documentation, system architecture, call recordings, and
+            n8n workflow exports available on request.
+          </p>
+          <a
+            href="#hero"
+            className="text-sm text-accent hover:underline"
+          >
+            Back to top
+          </a>
+        </footer>
+      </main>
+    </>
+  );
+}
