@@ -373,6 +373,6 @@ export const GAPS_PROSE = [
 // ── Zone 10 — Reflection ───────────────────────────────
 
 export const REFLECTION_PROSE = [
-  "If I rebuilt this project, I\u2019d spend even more time in discovery. The two calls I had with Alika were dense and productive, but I made assumptions about her image workflow that required a pivot mid-build. A third call focused specifically on the visual asset pipeline would have saved a week.",
+  "Working with Alika has taught me to let users speak their mind about their current workflows and pain points and to be very careful to not jump to diagnosing solutions to quickly. A good discovery is essential for a well-designed solution.",
   "Discovery isn\u2019t a phase you complete and leave. It\u2019s a mode of thinking you maintain throughout the build. Every technical decision is a hypothesis about the user\u2019s workflow \u2014 and hypotheses need validation, not just implementation.",
 ];
