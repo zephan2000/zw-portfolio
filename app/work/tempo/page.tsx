@@ -129,7 +129,7 @@ export default function TempoPage() {
 
         <hr className="border-border" />
 
-        {/* ── Zone 5A — Technical diagnosis ──────────── */}
+        {/* ── Zone 5 — Technical + Operational diagnosis ── */}
         <Section id="diagnosis-2a">
           <ZoneLabel text="The diagnosis — technical" />
           <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
@@ -137,15 +137,14 @@ export default function TempoPage() {
           </h2>
           <Prose paragraphs={DIAGNOSIS_2A_PROSE} />
           <CalloutBlock {...DIAGNOSIS_2A_CALLOUT} />
-        </Section>
 
-        {/* ── Zone 5B — Operational diagnosis ────────── */}
-        <Section id="diagnosis-2b">
-          <ZoneLabel text="The diagnosis — operational" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
-            You can&apos;t automate what&apos;s still in someone&apos;s head
-          </h2>
-          <Prose paragraphs={DIAGNOSIS_2B_PROSE} />
+          <div id="diagnosis-2b" className="mt-10 scroll-mt-24">
+            <ZoneLabel text="The diagnosis — operational" />
+            <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+              You can&apos;t automate what&apos;s still in someone&apos;s head
+            </h2>
+            <Prose paragraphs={DIAGNOSIS_2B_PROSE} />
+          </div>
         </Section>
 
         <hr className="border-border" />
@@ -227,7 +226,7 @@ export default function TempoPage() {
             </div>
 
             {/* Right — gap cards */}
-            <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {GAPS.map((gap, i) => (
                 <div
                   key={i}
