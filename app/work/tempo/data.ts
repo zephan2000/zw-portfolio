@@ -363,11 +363,26 @@ export const IMPACT_CALLOUT: CalloutData = {
 
 // ── Zone 9 — Gaps ──────────────────────────────────────
 
-export const GAPS_PROSE = [
-  "The system doesn\u2019t handle multi-image carousel posts yet. Instagram\u2019s API supports them, but the Notion-side interface for ordering multiple images needs design work.",
-  "Reels aren\u2019t supported. The Instagram API for Reels has different requirements \u2014 video processing, cover frame selection \u2014 that would need a separate pipeline branch.",
-  "Analytics aren\u2019t pulled back into Notion. Post performance data stays in Instagram Insights. Closing that loop would require a reverse sync pipeline.",
-  "The AI assistant\u2019s state protocol is functional but verbose. A future iteration would compress the state block format and add validation.",
+export type GapData = {
+  title: string;
+  description: string;
+};
+
+export const GAPS_HEADING = "Two honest gaps.";
+export const GAPS_SUBTEXT =
+  "Though these were non-essential requirements for Phase 1, they were considered in the solution design process.";
+
+export const GAPS: GapData[] = [
+  {
+    title: "WhatsApp approval still manual",
+    description:
+      "Personal touch preserved deliberately. Automating unstructured message parsing carries operational risk with little value.",
+  },
+  {
+    title: "Multi-template handling",
+    description:
+      "Currently one workspace template fits all clients. As client needs diverge \u2014 different post types, approval flows, platform mixes \u2014 the generator will need per-vertical templates. The architecture supports it; the client variety doesn\u2019t yet demand it.",
+  },
 ];
 
 // ── Zone 10 — Reflection ───────────────────────────────

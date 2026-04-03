@@ -20,7 +20,9 @@ import {
   METRICS,
   IMPACT_PROSE,
   IMPACT_CALLOUT,
-  GAPS_PROSE,
+  GAPS,
+  GAPS_HEADING,
+  GAPS_SUBTEXT,
   REFLECTION_PROSE,
 } from "./data";
 
@@ -212,9 +214,37 @@ export default function TempoPage() {
 
         {/* ── Zone 9 — Gaps ──────────────────────────── */}
         <Section id="gaps">
-          <ZoneLabel text="What it doesn't do yet" />
-          <div className="mt-4">
-            <Prose paragraphs={GAPS_PROSE} />
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-12 items-start">
+            {/* Left — framing */}
+            <div>
+              <ZoneLabel text="Close — What it doesn't do yet" />
+              <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
+                {GAPS_HEADING}
+              </h2>
+              <p className="text-base text-text-secondary leading-[1.8]">
+                {GAPS_SUBTEXT}
+              </p>
+            </div>
+
+            {/* Right — gap cards */}
+            <div className="flex flex-col gap-4">
+              {GAPS.map((gap, i) => (
+                <div
+                  key={i}
+                  className="border border-border rounded-lg p-6"
+                >
+                  <span className="inline-block px-3 py-1 text-xs font-medium uppercase tracking-wider bg-surface rounded-full mb-4">
+                    Gap {i + 1}
+                  </span>
+                  <h3 className="text-base font-semibold text-foreground mb-2">
+                    {gap.title}
+                  </h3>
+                  <p className="text-sm text-text-secondary leading-[1.7]">
+                    {gap.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </Section>
 
