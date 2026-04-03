@@ -19,17 +19,23 @@ function NodeCircle({
   isActive,
   trackVariant,
   onClick,
+  onHover,
+  onLeave,
 }: {
   node: JourneyNode;
   isActive: boolean;
   trackVariant: "setup" | "post";
   onClick: () => void;
+  onHover: () => void;
+  onLeave: () => void;
 }) {
   const isSetup = trackVariant === "setup";
 
   return (
     <button
       onClick={onClick}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
       className="flex flex-col items-center flex-1 cursor-pointer select-none group"
     >
       <div
@@ -62,11 +68,13 @@ function NodeCircle({
 }
 
 export default function JourneyMap() {
-  const [activeNode, setActiveNode] = useState<JourneyNode>(
+  const [lockedNode, setLockedNode] = useState<JourneyNode>(
     JOURNEY_TRACKS[0].nodes[0]
   );
+  const [hoveredNode, setHoveredNode] = useState<JourneyNode | null>(null);
   const [activeTrackIndex, setActiveTrackIndex] = useState(0);
 
+  const activeNode = hoveredNode ?? lockedNode;
   const activeTrack = JOURNEY_TRACKS.find((t) =>
     t.nodes.some((n) => n.id === activeNode.id)
   );
@@ -79,7 +87,7 @@ export default function JourneyMap() {
           System architecture — TEMPO
         </span>
         <span className="text-[11px] text-text-tertiary">
-          Click any node to see details
+          Hover to preview · click to lock
         </span>
       </div>
 
@@ -106,7 +114,7 @@ export default function JourneyMap() {
             key={track.label}
             onClick={() => {
               setActiveTrackIndex(i);
-              setActiveNode(track.nodes[0]);
+              setLockedNode(track.nodes[0]);
             }}
             className={`px-3 py-1.5 text-xs rounded-full transition-colors ${
               activeTrackIndex === i

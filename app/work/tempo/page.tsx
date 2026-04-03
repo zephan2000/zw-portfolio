@@ -32,7 +32,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="py-12 md:py-20 scroll-mt-16">
+    <section id={id} className="py-8 md:py-12 scroll-mt-24">
       {children}
     </section>
   );
@@ -54,7 +54,7 @@ export default function TempoPage() {
   return (
     <>
       <SideNav />
-      <main className="max-w-[720px] mx-auto px-6 pt-24">
+      <main className="max-w-[720px] mx-auto px-6 pt-24 lg:ml-[200px] lg:mr-auto xl:mx-auto">
         {/* ── Zone 1 — Hero ──────────────────────────── */}
         <Section id="hero">
           <p className="text-sm font-medium tracking-widest uppercase text-text-tertiary mb-4">
@@ -182,7 +182,7 @@ export default function TempoPage() {
           <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
             The structural outcome first
           </h2>
-          <div className="grid grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
             {METRICS.map((m) => (
               <div
                 key={m.label}

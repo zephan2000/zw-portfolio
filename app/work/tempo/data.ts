@@ -55,8 +55,8 @@ export type JourneyTrack = {
 // ── Navigation ─────────────────────────────────────────
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Hero", href: "#hero" },
-  { label: "Video", href: "#video" },
+  { label: "Introduction", href: "#introduction" },
+  { label: "Walkthrough", href: "#video" },
   { label: "Problem", href: "#problem" },
   { label: "Diagnosis", href: "#diagnosis-1" },
   { label: "Build", href: "#build" },

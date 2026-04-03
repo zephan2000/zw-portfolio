@@ -4,28 +4,35 @@ import { useState } from "react";
 import { BEFORE_AFTER_STEPS, BEFORE_AFTER_STATS } from "../data";
 
 export default function BeforeAfter() {
-  const [mode, setMode] = useState<"before" | "after">("before");
+  const [locked, setLocked] = useState<"before" | "after">("before");
+  const [hovered, setHovered] = useState<"before" | "after" | null>(null);
+
+  const mode = hovered ?? locked;
   const isAfter = mode === "after";
 
   return (
-    <div className="my-8">
+    <div className="my-4">
       {/* Toggle */}
-      <div className="flex bg-[var(--background)] rounded-lg p-[3px] gap-[2px] w-fit mb-5">
+      <div className="flex rounded-lg p-[3px] gap-[2px] w-fit mb-5 border border-border bg-surface">
         <button
-          onClick={() => setMode("before")}
+          onClick={() => setLocked("before")}
+          onMouseEnter={() => setHovered("before")}
+          onMouseLeave={() => setHovered(null)}
           className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors ${
             !isAfter
-              ? "bg-surface text-foreground border-border"
+              ? "bg-background text-foreground border-border"
               : "bg-transparent text-text-secondary border-transparent hover:text-foreground"
           }`}
         >
           Before
         </button>
         <button
-          onClick={() => setMode("after")}
+          onClick={() => setLocked("after")}
+          onMouseEnter={() => setHovered("after")}
+          onMouseLeave={() => setHovered(null)}
           className={`text-xs font-medium px-4 py-[5px] rounded-md border transition-colors ${
             isAfter
-              ? "bg-surface text-foreground border-border"
+              ? "bg-background text-foreground border-border"
               : "bg-transparent text-text-secondary border-transparent hover:text-foreground"
           }`}
         >
