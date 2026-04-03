@@ -5,7 +5,7 @@ export default function CalloutBlock({ quote, attribution, variant }: CalloutDat
 
   return (
     <blockquote
-      className={`pl-4 py-4 mt-8 rounded-r-md border-l-[3px] ${
+      className={`pl-4 pr-5 py-4 mt-8 rounded-r-md border-l-[3px] ${
         isClient
           ? "border-accent bg-accent-surface"
           : "border-self-accent bg-self-surface"

@@ -39,17 +39,24 @@ function NodeCircle({
       className="flex flex-col items-center flex-1 cursor-pointer select-none group"
     >
       <div
-        className={`relative w-10 h-10 rounded-full border flex items-center justify-center text-xs font-medium transition-all duration-200 ${
+        className={`relative w-10 h-10 rounded-full border-[1.5px] flex items-center justify-center text-xs font-medium transition-[color,border-color,background-color,box-shadow] duration-300 ease-out ${
           isActive
             ? isSetup
-              ? "border-accent bg-accent-surface text-accent border-[1.5px] glow-accent"
-              : "border-emerald-400 bg-emerald-50 text-emerald-700 border-[1.5px] glow-emerald"
-            : `border-border bg-surface text-text-secondary glass-surface ${
+              ? "border-accent bg-accent-surface text-accent"
+              : "border-emerald-400 bg-emerald-50 text-emerald-700"
+            : `border-border bg-surface text-text-secondary ${
                 isSetup
                   ? "group-hover:border-accent group-hover:text-accent"
                   : "group-hover:border-emerald-400 group-hover:text-emerald-700"
               }`
         }`}
+        style={{
+          boxShadow: isActive
+            ? isSetup
+              ? "0 0 0 1px var(--accent), 0 0 8px rgba(28, 78, 216, 0.1)"
+              : "0 0 0 1px rgb(52, 211, 153), 0 0 8px rgba(52, 211, 153, 0.1)"
+            : "inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 0.5px rgba(0, 0, 0, 0.04)",
+        }}
       >
         {node.abbr}
         {node.hasBadge && (
