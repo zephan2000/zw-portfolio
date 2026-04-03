@@ -345,7 +345,7 @@ export const PIVOTS: PivotData[] = [
 export const METRICS: MetricData[] = [
   { value: "2hr \u2192 20min", label: "Weekly scheduling time" },
   { value: "15 min", label: "Eliminated per post" },
-  { value: "5\u20137 clients", label: "One workflow" },
+  { value: "5\u20137 clients", label: "Managed with one workflow" },
 ];
 
 export const IMPACT_PROSE = [
