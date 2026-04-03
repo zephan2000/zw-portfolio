@@ -10,7 +10,7 @@ function getYouTubeId(url: string): string | null {
   return match ? match[1] : null;
 }
 
-const YOUTUBE_URL = "https://www.youtube.com/watch?v=BTYSD4lohOQ";
+const YOUTUBE_URL = "https://youtu.be/TmoN5tzbYkE";
 const PIP_W = 320;
 const PIP_H = 180;
 const PIP_INSET = 20;
