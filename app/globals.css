@@ -3,8 +3,8 @@
 :root {
   --background: #FAFAF9;
   --foreground: #1A1917;
-  --text-secondary: #6B6860;
-  --text-tertiary: #9E9B95;
+  --text-secondary: #57534E;
+  --text-tertiary: #A8A29E;
   --accent: #1C4ED8;
   --accent-surface: #EFF6FF;
   --surface: #FFFFFF;
@@ -32,4 +32,49 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* ── Shimmer: a single diagonal light sweep ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-once {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-once::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.4s ease-in-out 1.5s 1 forwards;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Glass surface: subtle inner highlight + soft edge ── */
+.glass-surface {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 0.5px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Soft glow for active interactive elements ── */
+.glow-accent {
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 0 8px rgba(28, 78, 216, 0.1);
+}
+.glow-emerald {
+  box-shadow:
+    0 0 0 1px rgb(52, 211, 153),
+    0 0 8px rgba(52, 211, 153, 0.1);
 }

@@ -40,9 +40,9 @@ function Section({
 
 function Prose({ paragraphs }: { paragraphs: string[] }) {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-4">
       {paragraphs.map((p, i) => (
-        <p key={i} className="text-base text-text-secondary leading-[1.75]">
+        <p key={i} className="text-base text-text-secondary leading-[1.8]">
           {p}
         </p>
       ))}
@@ -57,13 +57,13 @@ export default function TempoPage() {
       <main className="max-w-[720px] mx-auto px-6 pt-24 lg:ml-[200px] lg:mr-auto xl:mx-auto">
         {/* ── Zone 1 — Hero ──────────────────────────── */}
         <Section id="hero">
-          <p className="text-sm font-medium tracking-widest uppercase text-text-tertiary mb-4">
+          <p className="text-[11px] font-medium tracking-widest uppercase text-text-tertiary mb-3">
             Case Study
           </p>
-          <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-foreground mb-4">
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-3">
             {HERO.title}
           </h1>
-          <p className="font-serif text-2xl md:text-3xl text-foreground leading-snug mb-10">
+          <p className="font-serif text-xl md:text-2xl text-text-secondary leading-relaxed mb-10">
             {HERO.subheading}
           </p>
 
@@ -71,7 +71,7 @@ export default function TempoPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             {HERO.metadata.map((item) => (
               <div key={item.label}>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-text-tertiary mb-1">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-text-tertiary mb-1">
                   {item.label}
                 </p>
                 <p className="text-sm text-text-secondary leading-relaxed">
@@ -98,6 +98,8 @@ export default function TempoPage() {
         <Section id="video">
           <VideoPlayer />
         </Section>
+
+        <hr className="border-border" />
 
         {/* ── Zone 3 — Problem ───────────────────────── */}
         <Section id="problem">
@@ -141,6 +143,8 @@ export default function TempoPage() {
           <Prose paragraphs={DIAGNOSIS_2B_PROSE} />
         </Section>
 
+        <hr className="border-border" />
+
         {/* ── Zone 6 — Build ─────────────────────────── */}
         <Section id="build">
           <ZoneLabel text="What I built" />
@@ -175,6 +179,8 @@ export default function TempoPage() {
             ))}
           </div>
         </Section>
+
+        <hr className="border-border" />
 
         {/* ── Zone 8 — Impact ────────────────────────── */}
         <Section id="impact">

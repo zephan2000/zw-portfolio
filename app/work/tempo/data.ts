@@ -55,10 +55,12 @@ export type JourneyTrack = {
 // ── Navigation ─────────────────────────────────────────
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Introduction", href: "#introduction" },
+  { label: "Introduction", href: "#hero" },
   { label: "Walkthrough", href: "#video" },
   { label: "Problem", href: "#problem" },
   { label: "Diagnosis", href: "#diagnosis-1" },
+  { label: "Technical gap", href: "#diagnosis-2a" },
+  { label: "Operational gap", href: "#diagnosis-2b" },
   { label: "Build", href: "#build" },
   { label: "Pivots", href: "#pivots" },
   { label: "Impact", href: "#impact" },
@@ -69,9 +71,9 @@ export const NAV_ITEMS: NavItem[] = [
 // ── Zone 1 — Hero ──────────────────────────────────────
 
 export const HERO = {
-  title: "TEMPO",
+  title: "Notion Workspace Agent",
   subheading:
-    "The constraint wasn\u2019t that no scheduling tool existed. It was that Notion couldn\u2019t push.",
+    "How we bought back 2 hours per week for a solo social media manager",
   metadata: [
     {
       label: "Client type",
