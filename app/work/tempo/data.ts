@@ -16,7 +16,8 @@ export type PivotData = {
 };
 
 export type MetricData = {
-  value: string;
+  before?: string;
+  after: string;
   label: string;
 };
 
@@ -343,9 +344,9 @@ export const PIVOTS: PivotData[] = [
 // ── Zone 8 — Impact ────────────────────────────────────
 
 export const METRICS: MetricData[] = [
-  { value: "2hr \u2192 20min", label: "Weekly scheduling time" },
-  { value: "15 min", label: "Eliminated per post" },
-  { value: "5\u20137 clients", label: "Managed with one workflow" },
+  { before: "2 hr", after: "20 min", label: "Client workspace setup" },
+  { before: "15 min", after: "0 min", label: "Per post, manual work" },
+  { after: "5\u20137 clients", label: "One unified workflow" },
 ];
 
 export const IMPACT_PROSE = [
