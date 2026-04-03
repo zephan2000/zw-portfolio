@@ -258,7 +258,7 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         label: "Handoff",
         title: "Verification & handoff",
         description:
-          "A verification matrix confirms: Posts DB exists and is linked to the workspace, n8n scheduling webhook responds correctly, Telegram bot is connected and receiving, and at least one test post has been queued. Claude generates a client summary and confirms all systems are live before closing the session.",
+          "A verification skill confirms that Posts DB exists and is linked to the workspace, n8n scheduling webhook responds correctly, Telegram bot is connected and receiving, and at least one test post has been queued. Claude generates a client summary and confirms all systems are live before closing the session.",
       },
     ],
   },
@@ -273,7 +273,7 @@ export const JOURNEY_TRACKS: JourneyTrack[] = [
         label: "Draft in Notion",
         title: "Draft \u2014 content creation stays in Notion",
         description:
-          "User creates a new entry in the Posts database: caption, post type (Image / Carousel / Reel), a Google Drive media link, and a scheduled date and time. Everything stays inside Notion \u2014 she never opens Instagram at any point in this workflow.",
+          "User creates a new entry in the Posts database: caption, post type (Image / Carousel / Reel), a Google Drive media link, and a scheduled date and time. Everything stays inside Notion \u2014 users never opens Instagram at any point in this workflow.",
       },
       {
         id: "status-change",
@@ -370,7 +370,7 @@ export type GapData = {
 
 export const GAPS_HEADING = "Two honest gaps";
 export const GAPS_SUBTEXT =
-  "Though these were non-essential requirements for Phase 1, they were considered in the solution design process.";
+  "Though these were non-essential requirements for Phase 1, they were considered in the solution design process to cater for future feature additions.";
 
 export const GAPS: GapData[] = [
   {

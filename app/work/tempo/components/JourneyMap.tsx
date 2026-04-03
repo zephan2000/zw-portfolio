@@ -91,7 +91,7 @@ export default function JourneyMap() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <span className="text-[13px] font-medium text-foreground">
-          System architecture — TEMPO
+          System architecture
         </span>
         <span className="text-[11px] text-text-tertiary">
           Hover to preview · click to lock
