@@ -11,130 +11,228 @@ function getYouTubeId(url: string): string | null {
 }
 
 const YOUTUBE_URL = "https://www.youtube.com/watch?v=BTYSD4lohOQ";
+const PIP_W = 320;
+const PIP_H = 180;
+const PIP_INSET = 20;
 
 export default function VideoPlayer() {
   const videoId = getYouTubeId(YOUTUBE_URL);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isFloating, setIsFloating] = useState(false);
+  const placeholderRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const controlsRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef(0);
+  const floatingRef = useRef(false);
+  const [floating, setFloating] = useState(false);
   const [dismissed, setDismissed] = useState(false);
-  const [hasPlayed, setHasPlayed] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [seen, setSeen] = useState(false);
 
-  // Track when the inline container scrolls out of view
+  // ── Inline: rAF loop keeps the fixed wrapper aligned over the placeholder ──
   useEffect(() => {
-    const el = containerRef.current;
+    if (floating) {
+      cancelAnimationFrame(rafRef.current);
+      return;
+    }
+    floatingRef.current = false;
+
+    const tick = () => {
+      const ph = placeholderRef.current;
+      const wr = wrapperRef.current;
+      if (ph && wr) {
+        const r = ph.getBoundingClientRect();
+        wr.style.transition = "opacity 0.3s";
+        wr.style.top = r.top + "px";
+        wr.style.left = r.left + "px";
+        wr.style.width = r.width + "px";
+        wr.style.height = r.height + "px";
+        wr.style.opacity = "1";
+        wr.style.borderRadius = "8px";
+        wr.style.boxShadow = "none";
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [floating]);
+
+  // ── Floating: stop rAF, CSS-transition from last inline position to corner ──
+  useEffect(() => {
+    if (!floating) return;
+    floatingRef.current = true;
+    const wr = wrapperRef.current;
+    if (!wr) return;
+
+    // One frame delay so the browser paints the current (inline) position first
+    requestAnimationFrame(() => {
+      const ease = "0.5s cubic-bezier(0.4,0,0.2,1)";
+      wr.style.transition = [
+        `top ${ease}`,
+        `left ${ease}`,
+        `width ${ease}`,
+        `height ${ease}`,
+        "opacity 0.4s ease",
+        "border-radius 0.3s ease",
+        "box-shadow 0.4s ease",
+      ].join(", ");
+      wr.style.top = `${window.innerHeight - PIP_H - PIP_INSET}px`;
+      wr.style.left = `${window.innerWidth - PIP_W - PIP_INSET}px`;
+      wr.style.width = PIP_W + "px";
+      wr.style.height = PIP_H + "px";
+      wr.style.opacity = "0.45";
+      wr.style.borderRadius = "12px";
+      wr.style.boxShadow = "0 8px 32px rgba(0,0,0,0.12)";
+    });
+
+    // Reposition on window resize while floating
+    const onResize = () => {
+      if (!floatingRef.current || !wrapperRef.current) return;
+      wrapperRef.current.style.transition = "none";
+      wrapperRef.current.style.top = `${window.innerHeight - PIP_H - PIP_INSET}px`;
+      wrapperRef.current.style.left = `${window.innerWidth - PIP_W - PIP_INSET}px`;
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [floating]);
+
+  // ── Intersection observer: trigger float / unfloat ──
+  useEffect(() => {
+    const el = placeholderRef.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const visible = entry.isIntersecting;
-        setIsVisible(visible);
-
-        if (!visible && !dismissed) {
-          setIsFloating(true);
-        } else if (visible) {
-          setIsFloating(false);
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setSeen(true);
+          setFloating(false);
+        } else if (seen && !dismissed) {
+          setFloating(true);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.3 }
     );
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [dismissed]);
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [seen, dismissed]);
 
-  // Autoplay (muted) when the video first enters viewport
-  useEffect(() => {
-    if (isVisible && !hasPlayed) {
-      setHasPlayed(true);
-    }
-  }, [isVisible, hasPlayed]);
+  // ── Hover handlers ──
+  // Work because the iframe is pointer-events-none when floating,
+  // so the wrapper div receives mouse events over its full area.
+  const onEnter = useCallback(() => {
+    if (!floatingRef.current) return;
+    if (wrapperRef.current) wrapperRef.current.style.opacity = "1";
+    if (controlsRef.current) controlsRef.current.style.opacity = "1";
+  }, []);
+
+  const onLeave = useCallback(() => {
+    if (!floatingRef.current) return;
+    if (wrapperRef.current) wrapperRef.current.style.opacity = "0.45";
+    if (controlsRef.current) controlsRef.current.style.opacity = "0";
+  }, []);
 
   const handleDismiss = useCallback(() => {
     setDismissed(true);
-    setIsFloating(false);
+    setFloating(false);
   }, []);
 
-  const handleScrollBack = useCallback(() => {
-    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const handleExpand = useCallback(() => {
+    placeholderRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   }, []);
-
-  // Build embed URL — autoplay muted once the user has scrolled to the section
-  const embedParams = new URLSearchParams({
-    rel: "0",
-    modestbranding: "1",
-    ...(hasPlayed ? { autoplay: "1", mute: "1" } : {}),
-  });
 
   const embedSrc = videoId
-    ? `https://www.youtube-nocookie.com/embed/${videoId}?${embedParams.toString()}`
+    ? `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&mute=1`
     : null;
 
-  return (
-    <>
-      {/* Inline container — always reserves space in the layout */}
-      <div ref={containerRef}>
-        <div
-          className={`relative bg-foreground/5 rounded-lg overflow-hidden aspect-video transition-opacity duration-300 ${
-            isFloating ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          {embedSrc && !isFloating ? (
-            <iframe
-              className="w-full h-full"
-              src={embedSrc}
-              title="TEMPO walkthrough"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : !isFloating ? (
-            <div className="w-full h-full flex items-center justify-center text-text-tertiary text-sm">
-              Video unavailable
-            </div>
-          ) : null}
-        </div>
-        <p className="text-sm text-text-tertiary mt-3 text-center">
-          {VIDEO_CAPTION}
-        </p>
-      </div>
+  if (!embedSrc) return null;
 
-      {/* Floating mini-player */}
-      {isFloating && embedSrc && (
+  return (
+    <div>
+      {/* Placeholder — sits in document flow, reserves space */}
+      <div
+        ref={placeholderRef}
+        className="relative rounded-lg overflow-hidden aspect-video bg-foreground/5"
+      />
+
+      {/* Single iframe wrapper — always position:fixed, repositioned via JS.
+          When inline: rAF overlays it on the placeholder.
+          When floating: CSS transition moves it to the corner. */}
+      {seen && !dismissed && (
         <div
-          className="fixed bottom-5 right-5 z-50 rounded-lg overflow-hidden shadow-2xl border border-border bg-foreground/5 animate-in slide-in-from-bottom-4 fade-in duration-300"
-          style={{ width: 320, aspectRatio: "16/9" }}
+          ref={wrapperRef}
+          className="fixed z-50 overflow-hidden"
+          style={{ top: 0, left: 0, width: 0, height: 0, opacity: 0 }}
+          onMouseEnter={onEnter}
+          onMouseLeave={onLeave}
         >
           <iframe
-            className="w-full h-full"
+            className={`w-full h-full border-0 ${
+              floating ? "pointer-events-none" : ""
+            }`}
             src={embedSrc}
-            title="TEMPO walkthrough (mini)"
+            title="TEMPO walkthrough"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
 
-          {/* Controls overlay */}
-          <div className="absolute top-2 right-2 flex gap-1.5">
-            <button
-              onClick={handleScrollBack}
-              className="bg-black/60 hover:bg-black/80 text-white rounded-md p-1.5 transition-colors backdrop-blur-sm"
-              title="Scroll back to video"
+          {/* PiP controls — hidden when inline, fade in on hover when floating.
+              pointer-events-auto so buttons remain clickable over the
+              pointer-events-none iframe. */}
+          {floating && (
+            <div
+              ref={controlsRef}
+              className="absolute top-2 right-2 flex gap-1.5 pointer-events-auto"
+              style={{ opacity: 0, transition: "opacity 0.2s ease" }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <button
-              onClick={handleDismiss}
-              className="bg-black/60 hover:bg-black/80 text-white rounded-md p-1.5 transition-colors backdrop-blur-sm"
-              title="Close mini player"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+              <button
+                onClick={handleExpand}
+                className="bg-black/60 hover:bg-black/80 text-white rounded-md p-1.5 backdrop-blur-sm transition-colors"
+                title="Back to video"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="15 3 21 3 21 9" />
+                  <polyline points="9 21 3 21 3 15" />
+                  <line x1="21" y1="3" x2="14" y2="10" />
+                  <line x1="3" y1="21" x2="10" y2="14" />
+                </svg>
+              </button>
+              <button
+                onClick={handleDismiss}
+                className="bg-black/60 hover:bg-black/80 text-white rounded-md p-1.5 backdrop-blur-sm transition-colors"
+                title="Close"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       )}
-    </>
+
+      <p className="text-sm text-text-tertiary mt-3 text-center">
+        {VIDEO_CAPTION}
+      </p>
+    </div>
   );
 }
