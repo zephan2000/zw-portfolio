@@ -213,7 +213,7 @@ export default function TempoPage() {
             {GAPS.map((gap, i) => (
               <div
                 key={i}
-                className="border border-border rounded-lg p-6"
+                className="bg-surface border border-border rounded-lg p-6"
               >
                 <span className="inline-block px-3 py-1 text-xs font-medium uppercase tracking-wider bg-surface rounded-full mb-4">
                   Gap {i + 1}

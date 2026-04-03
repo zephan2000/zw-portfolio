@@ -27,7 +27,21 @@ export default function SideNav() {
       observers.push(observer);
     }
 
-    return () => observers.forEach((o) => o.disconnect());
+    // When scrolled to the very bottom, activate the last section
+    const lastId = sectionIds[sectionIds.length - 1];
+    const onScroll = () => {
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 50;
+      if (atBottom && lastId) {
+        setActiveId(lastId);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
