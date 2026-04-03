@@ -93,13 +93,14 @@ export const HERO = {
     },
   ] as MetadataItem[],
   stack: [
-    "Notion API",
+    "Notion API Integrations",
+    "Agent Skills",
     "n8n",
-    "Vercel",
     "Supabase",
-    "Instagram Creator API",
-    "Facebook OAuth",
+    "Facebook Graph API",
+    "Custom OAuth Handlers",
     "Claude MCP",
+    
   ],
 };
 

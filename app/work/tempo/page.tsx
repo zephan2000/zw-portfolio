@@ -58,7 +58,7 @@ export default function TempoPage() {
         {/* ── Zone 1 — Hero ──────────────────────────── */}
         <Section id="hero">
           <p className="text-[11px] font-medium tracking-widest uppercase text-text-tertiary mb-3">
-            Case Study
+            Client Project
           </p>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-3">
             {HERO.title}
@@ -99,7 +99,6 @@ export default function TempoPage() {
           <VideoPlayer />
         </Section>
 
-        <hr className="border-border" />
 
         {/* ── Zone 3 — Problem ───────────────────────── */}
         <Section id="problem">
@@ -114,6 +113,8 @@ export default function TempoPage() {
           <CalloutBlock {...PROBLEM_CALLOUT} />
         </Section>
 
+        <hr className="border-border" />
+
         {/* ── Zone 4 — Diagnosis 1 ───────────────────── */}
         <Section id="diagnosis-1">
           <ZoneLabel text="What I ruled out and why" />
@@ -123,6 +124,8 @@ export default function TempoPage() {
           <Prose paragraphs={DIAGNOSIS_1_PROSE} />
           <CalloutBlock {...DIAGNOSIS_1_CALLOUT} />
         </Section>
+
+        <hr className="border-border" />
 
         {/* ── Zone 5A — Technical diagnosis ──────────── */}
         <Section id="diagnosis-2a">
@@ -166,6 +169,7 @@ export default function TempoPage() {
             ))}
           </div>
         </Section>
+        <hr className="border-border" />
 
         {/* ── Zone 7 — Pivots ────────────────────────── */}
         <Section id="pivots">
@@ -204,6 +208,7 @@ export default function TempoPage() {
           <Prose paragraphs={IMPACT_PROSE} />
           <CalloutBlock {...IMPACT_CALLOUT} />
         </Section>
+        <hr className="border-border" />
 
         {/* ── Zone 9 — Gaps ──────────────────────────── */}
         <Section id="gaps">
@@ -222,7 +227,7 @@ export default function TempoPage() {
           <Prose paragraphs={REFLECTION_PROSE} />
         </Section>
 
-        {/* ── Footer ─────────────────────────────────── */}
+        {/* ── Footer ───────────────────────────────────
         <footer className="py-16 border-t border-border text-center">
           <p className="text-sm text-text-secondary mb-4">
             Technical documentation, system architecture, call recordings, and
@@ -234,7 +239,7 @@ export default function TempoPage() {
           >
             Back to top
           </a>
-        </footer>
+        </footer> */}
       </main>
     </>
   );

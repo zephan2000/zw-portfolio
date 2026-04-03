@@ -13,12 +13,26 @@ export default function TopNav() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5">
       {/* Logo */}
-      <Link
-        href="/"
-        className="font-serif text-xl text-foreground tracking-tight"
-        aria-label="Home"
-      >
-        zw
+      <Link href="/" className="text-foreground" aria-label="Home">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <text
+            x="4"
+            y="32"
+            fontFamily="var(--font-serif)"
+            fontSize="32"
+            fontWeight="400"
+            fill="currentColor"
+          >
+            Z
+          </text>
+        </svg>
       </Link>
 
       {/* Pill nav */}
