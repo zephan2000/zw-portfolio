@@ -70,7 +70,6 @@ export default function VideoPlayer() {
         `left ${ease}`,
         `width ${ease}`,
         `height ${ease}`,
-        "opacity 0.4s ease",
         "border-radius 0.3s ease",
         "box-shadow 0.4s ease",
       ].join(", ");
@@ -78,10 +77,17 @@ export default function VideoPlayer() {
       wr.style.left = `${window.innerWidth - PIP_W - PIP_INSET}px`;
       wr.style.width = PIP_W + "px";
       wr.style.height = PIP_H + "px";
-      wr.style.opacity = "0.45";
+      wr.style.opacity = "1";
       wr.style.borderRadius = "12px";
       wr.style.boxShadow = "0 8px 32px rgba(0,0,0,0.12)";
     });
+
+    // Fade to low opacity after 3s at full visibility
+    const fadeTimer = setTimeout(() => {
+      if (!floatingRef.current || !wrapperRef.current) return;
+      wrapperRef.current.style.transition = "opacity 0.6s ease";
+      wrapperRef.current.style.opacity = "0.45";
+    }, 3000);
 
     // Reposition on window resize while floating
     const onResize = () => {
@@ -91,7 +97,10 @@ export default function VideoPlayer() {
       wrapperRef.current.style.left = `${window.innerWidth - PIP_W - PIP_INSET}px`;
     };
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    return () => {
+      clearTimeout(fadeTimer);
+      window.removeEventListener("resize", onResize);
+    };
   }, [floating]);
 
   // ── Intersection observer: trigger float / unfloat ──
