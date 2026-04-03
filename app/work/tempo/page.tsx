@@ -44,7 +44,7 @@ function Prose({ paragraphs }: { paragraphs: string[] }) {
   return (
     <div className="flex flex-col gap-4">
       {paragraphs.map((p, i) => (
-        <p key={i} className="text-base text-text-secondary leading-[1.8]">
+        <p key={i} className="text-lg text-text-secondary leading-[1.8]">
           {p}
         </p>
       ))}
@@ -105,7 +105,7 @@ export default function TempoPage() {
         {/* ── Zone 3 — Problem ───────────────────────── */}
         <Section id="problem">
           <ZoneLabel text="The world before" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             What was broken
           </h2>
           <Prose paragraphs={PROBLEM_PROSE} />
@@ -120,7 +120,7 @@ export default function TempoPage() {
         {/* ── Zone 4 — Diagnosis 1 ───────────────────── */}
         <Section id="diagnosis-1">
           <ZoneLabel text="What I ruled out and why" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             Why obvious fixes failed
           </h2>
           <Prose paragraphs={DIAGNOSIS_1_PROSE} />
@@ -132,7 +132,7 @@ export default function TempoPage() {
         {/* ── Zone 5 — Technical + Operational diagnosis ── */}
         <Section id="diagnosis-2a">
           <ZoneLabel text="The diagnosis — technical" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             Notion couldn&apos;t push
           </h2>
           <Prose paragraphs={DIAGNOSIS_2A_PROSE} />
@@ -140,7 +140,7 @@ export default function TempoPage() {
 
           <div id="diagnosis-2b" className="mt-10 scroll-mt-24">
             <ZoneLabel text="The diagnosis — operational" />
-            <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
               You can&apos;t automate what&apos;s still in someone&apos;s head
             </h2>
             <Prose paragraphs={DIAGNOSIS_2B_PROSE} />
@@ -152,17 +152,17 @@ export default function TempoPage() {
         {/* ── Zone 6 — Build ─────────────────────────── */}
         <Section id="build">
           <ZoneLabel text="What I built" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             Three components, each with a reason
           </h2>
-          <p className="text-base text-text-secondary leading-[1.75] mb-2">
+          <p className="text-lg text-text-secondary leading-[1.75] mb-2">
             {BUILD_INTRO_PROSE}
           </p>
           <JourneyMap />
           <div className="mt-10 flex flex-col gap-10">
             {BUILD_SUBSECTIONS.map((sub) => (
               <div key={sub.heading}>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
+                <h3 className="text-xl font-semibold text-foreground mb-3">
                   {sub.heading}
                 </h3>
                 <Prose paragraphs={sub.paragraphs} />
@@ -175,7 +175,7 @@ export default function TempoPage() {
         {/* ── Zone 7 — Pivots ────────────────────────── */}
         <Section id="pivots">
           <ZoneLabel text="The pivots" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             Two moments where the obvious approach was wrong
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -190,7 +190,7 @@ export default function TempoPage() {
         {/* ── Zone 8 — Impact ────────────────────────── */}
         <Section id="impact">
           <ZoneLabel text="Impact" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             The structural outcome first
           </h2>
           <MetricCards />
@@ -202,10 +202,10 @@ export default function TempoPage() {
         {/* ── Zone 9 — Gaps ──────────────────────────── */}
         <Section id="gaps">
           <ZoneLabel text="What it doesn't do yet" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-4">
             {GAPS_HEADING}
           </h2>
-          <p className="text-base text-text-secondary leading-[1.8] mb-8">
+          <p className="text-lg text-text-secondary leading-[1.8] mb-8">
             {GAPS_SUBTEXT}
           </p>
 
@@ -218,10 +218,10 @@ export default function TempoPage() {
                 <span className="inline-block px-3 py-1 text-xs font-medium uppercase tracking-wider bg-surface rounded-full mb-4">
                   Gap {i + 1}
                 </span>
-                <h3 className="text-base font-semibold text-foreground mb-2">
+                <h3 className="text-lg font-semibold text-foreground mb-2">
                   {gap.title}
                 </h3>
-                <p className="text-sm text-text-secondary leading-[1.7]">
+                <p className="text-base text-text-secondary leading-[1.7]">
                   {gap.description}
                 </p>
               </div>
@@ -232,7 +232,7 @@ export default function TempoPage() {
         {/* ── Zone 10 — Reflection ───────────────────── */}
         <Section id="reflection">
           <ZoneLabel text="What I'd do differently" />
-          <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
             Discovery is the work
           </h2>
           <Prose paragraphs={REFLECTION_PROSE} />
